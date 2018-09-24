@@ -12,9 +12,13 @@
 
 cxsjsxmooc.openjudge.cn/2018t3fallw1/
 
-## 3.2 Week2:
+## 3.2 Week2：
 
 cxsjsxmooc.openjudge.cn/2018t3fallw2/ 
+
+## 3.3 Week3：
+
+
 
 # 4. 关于编译
 
@@ -25,5 +29,9 @@ make 1st
 ## 4.2 Week2编译
 
 make 2nd
+
+## 4.3 Week3编译
+
+make 3rd
 
 *注意不同的题目请修改makefile的宏定义来编译*

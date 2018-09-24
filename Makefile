@@ -12,8 +12,11 @@ w2:2nd
 2nd:clean
 	g++ -o 2nd.exe 2ndweekworks.cc -DW2_4 -lstdc++
 	
-tst:clean
-	g++ -o tst.exe test.cc -lstdc++
+3rd:clean
+	g++ -o 3rd.exe 3rdweekworks.cc -DW3_4 -lstdc++
+	
+test:clean
+	g++ -o test.exe test.cc -lstdc++
 	
 clean:
 	rm -f *.exe
