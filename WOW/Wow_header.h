@@ -126,6 +126,7 @@ private:
 public:
 	Headquarters():lifeElement(0),nextCreateWarrior(0),failureFlag(false),warriorCnt(0){}
 	virtual bool triggerCreateNewWarrior();
+	virtual void printInfo(Warrior& war, enumType eT);
 	void setLifeElement(int a){
 		lifeElement = a;
 	}
@@ -233,10 +234,86 @@ private:
 
 class BlueArmyHeadquarters : public Headquarters{
 public:
-	bool triggerCreateNewWarrior();
+	BlueArmy(){}
+	void printInfo(Warrior& war, enumType eT){
+		int initLifeArray[] = {lionlife, dragonlife, ninjalife, icemanlife, wolflife};
+		string name[] = {"iceman","lion","wolf","ninja","dragon"};
+		cout.width(3);
+		cout.fill('0');
+		cout << getTimeticks();
+		cout << " blue " << name[eT] << " " << getWarriorCnt() 
+			<< " born with strength " << initLifeArray[eT] << ", " 
+			<< war.getOneKindWarriorCnt() <<" " << name[eT] << " in blue headquarter" << endl;
+	}
+	bool triggerCreateNewWarrior(){
+		int initLifeArray[] = {lionlife, dragonlife, ninjalife, icemanlife, wolflife};
+		int lifeElement = getLifeElement();
+		bool rtnFlag = false;
+		int validIdx = 0;
+		for(int idx = getNextCreateWarrior(); idx < 5; idx++){
+			if(lifeElement - initLifeArray[idx] >= 0){
+				validIdx = idx;
+				rtnFlag = true;
+				break;
+			}
+		}
+		for(int idx = 0; rtnFlag == false && idx < getNextCreateWarrior(); idx++)
+		{
+			if(lifeElement - initLifeArray[idx] >= 0){
+				validIdx = idx;
+				rtnFlag = true;
+				break;
+			}
+		}
+		if (rtnFlag == true){
+			switch (validIdx){
+				case 0:
+					Iceman iceman(getWarriorCnt(), ICEMAN, icemanlife);
+					printInfo(iceman, ICEMAN);
+					break;
+				case 1:
+					Lion lion(getWarriorCnt(), LION, lionlife);
+					printInfo(lion, LION);
+					break;
+				case 2:
+					Wolf wolf(getWarriorCnt(), WOLF, wolflife);
+					printInfo(wolf, WOLF);
+					break;
+				case 3:
+					Ninja ninja(getWarriorCnt(), NINJA, ninjalife);
+					printInfo(ninja, NINJA);
+					break;
+				case 4:
+					Dragon dragon(getWarriorCnt(), DRAGON, dragonlife);
+					printInfo(dragon, DRAGON);
+					break;
+				default:
+					cout << "triggerCreateNewWarrior has some bugs here" << endl;
+					break;
+			}
+			updateTimeticks();
+			updateNextCreateWarrior(validIdx+1);
+			warriorCntAddOne();
+			setLifeElement(lifeElement - initLifeArray[validIdx]);
+		}
+		else{
+			cout.width(3);
+			cout.fill('0');
+			cout << getTimeticks();
+			cout << " blue headquarter stops making warriors" << endl;
+		}
+		return rtnFlag;
+	}
 private:
-		static int timeticks;
+	static int timeticks;
+	void updateTimeticks(){
+		timeticks++;
+	}
+	int getTimeticks(){
+		return timeticks;
+	}
 };
+
 
 
 #endif
