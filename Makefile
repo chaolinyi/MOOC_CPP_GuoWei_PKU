@@ -20,6 +20,9 @@ w2:2nd
 
 5th:clean
 	g++ -o 5th.exe 5thweekworks.cc -DW5_4 -lstdc++
+
+6th:clean
+	g++ -o 6th.exe 6thweekworks.cc -DW6_4 -lstdc++
 	
 test:clean
 	g++ -o test.exe test.cc -lstdc++
